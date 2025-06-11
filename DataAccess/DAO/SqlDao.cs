@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -36,11 +37,29 @@ namespace DataAccess.DAO
             return instance;
         }
         //Metodo para la ejecucion de SP sin retorno
-        public void ExecuteProcedure(SqlOperation operation)
+        public void ExecuteProcedure(SqlOperation sqlOperation)
         {
-            //Conectarse a la base de datos
-            //Ejecutar el SP
+            using (var conn = new SqlConnection(_connectionString))
+            {
+                using (var command = new SqlCommand(sqlOperation.ProcedureName, conn)
+                {
+                    CommandType = System.Data.CommandType.StoredProcedure
+                })
+                {
+                    //Set de los parametros
+                    foreach (var param in sqlOperation.Parameters)
+                    {
+                        command.Parameters.Add(param);
+
+                    }
+                    //Ejecutar el SP
+                    conn.Open();
+                    command.ExecuteNonQuery();
+                }
+            }        
         }
+    
+
         //Metodo para la ejecucion de SP con retorno de data
         public List<Dictionary<string, object>> ExecuteQueryProcedure(SqlOperation operation)
         {
