@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Data.SqlClient;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -20,12 +21,12 @@ namespace DataAccess.DAO
         //Paso 1: Crear una instancia privada de la misma clase
         private static SqlDao instance;
 
-        private string connectionString;
+        private string _connectionString;
 
         //Paso 2: Redefinir el constructor default y convertirlo en privado
         private SqlDao()
         {
-            connectionString = string.Empty;
+            _connectionString = @"Data Source=srv-sqldatabase-abejarano.database.windows.net;Initial Catalog=cenfocinemas-db;User ID=Sysman;Password=Cenfotec123!;Trust Server Certificate=True";
         }
         //Paso 3: Definir el metodo que expone la instancia
         public static SqlDao GetInstance()
@@ -36,7 +37,9 @@ namespace DataAccess.DAO
             }
             return instance;
         }
-        //Metodo para la ejecucion de SP sin retorno
+        //Metodo que permite ejectura un store procedure en la base de datos
+        // no genera retorno, solo en caso de excepciones retorna exception
+
         public void ExecuteProcedure(SqlOperation sqlOperation)
         {
             using (var conn = new SqlConnection(_connectionString))
@@ -50,15 +53,14 @@ namespace DataAccess.DAO
                     foreach (var param in sqlOperation.Parameters)
                     {
                         command.Parameters.Add(param);
-
                     }
-                    //Ejecutar el SP
+                    //Ejectura el SP
                     conn.Open();
                     command.ExecuteNonQuery();
                 }
-            }        
+
+            }
         }
-    
 
         //Metodo para la ejecucion de SP con retorno de data
         public List<Dictionary<string, object>> ExecuteQueryProcedure(SqlOperation operation)
