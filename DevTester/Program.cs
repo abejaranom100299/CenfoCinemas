@@ -1,5 +1,6 @@
 ﻿
 
+using CoreApp;
 using DataAccess.CRUD;
 using DataAccess.DAO;
 using DTOs;
@@ -54,18 +55,19 @@ public class Program{
                     Status = status,
                     BirthDate = bdate
                };
-                var uCrud = new UserCrudFactory();
-                uCrud.Create(user);
+                var um = new UserManager();
+                um.Create(user);
+
                 break;
 
-                case 2:
-                uCrud = new UserCrudFactory();
-                var listUsers = uCrud.RetrieveAll<User>();
-                foreach(var u in listUsers)
-                {
-                    Console.WriteLine(JsonConvert.SerializeObject(u));
-                }
-                break;
+                //case 2:
+               // uCrud = new UserCrudFactory();
+                //var listUsers = uCrud.RetrieveAll<User>();
+                //foreach(var u in listUsers)
+                //{
+                  //  Console.WriteLine(JsonConvert.SerializeObject(u));
+               // }
+                //break;
                 case 5:
 
                 Console.WriteLine("Digite el titulo");
@@ -97,7 +99,7 @@ public class Program{
                break;
         }
         //Ejecucion del procedure
-        var sqlDao = SqlDao.GetInstance();
+        //var sqlDao = SqlDao.GetInstance();
         //sqlDao.ExecuteProcedure(sqlOperation);
 
     }

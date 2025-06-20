@@ -24,7 +24,7 @@ namespace DataAccess.CRUD
             throw new NotImplementedException();
         }
 
-        public override T RetrieveById<T>()
+        public override T RetrieveById<T>(int id)
         {
             throw new NotImplementedException();
         }

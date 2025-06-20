@@ -52,12 +52,53 @@ namespace DataAccess.CRUD
 
             return lstUsers;
         }
-        public override T RetrieveById<T>()
+        public override T RetrieveById<T>(int id)
         {
-            throw new NotImplementedException();
+            var sqlOperation = new SqlOperation() { ProcedureName = "RET_USER_BY_ID_PR" };
+            sqlOperation.AddIntParam("P_ID", id);
+            var lstResults = _sqlDao.ExecuteQueryProcedure(sqlOperation);
+
+            if (lstResults.Count > 0){
+                var row = lstResults[0];
+                var user = BuildUser(row);
+
+                return (T)Convert.ChangeType(user, typeof(T));
+
+            }
+            return default(T);
         }
-        public override T Retrive<T>()
+        public  T RetrieveByUserCode<T>(User user)
         {
+            var sqlOperation = new SqlOperation() { ProcedureName = "RET_USER_BY_CODE_PR" };
+            sqlOperation.AddStringParameter("P_CODE", user.UserCode);
+
+            var lstResults = _sqlDao.ExecuteQueryProcedure(sqlOperation);
+            if (lstResults.Count > 0)
+            {
+                var row = lstResults[0];
+                user = BuildUser(row);
+
+                return (T)Convert.ChangeType(user, typeof(T));
+            }
+            return default(T);
+        }
+        public T RetrieveByEmail<T>(User user)
+        {
+            var sqlOperation = new SqlOperation() { ProcedureName = "RET_USER_BY_EMAIL_PR" };
+            sqlOperation.AddStringParameter("P_EMAIL", user.Email);
+            var lstResults = _sqlDao.ExecuteQueryProcedure(sqlOperation);
+
+            if(lstResults.Count > 0)
+            {
+                var row = lstResults[0];
+                user = BuildUser(row);
+                return (T)Convert.ChangeType(user, typeof(T));
+            }
+            return default(T);
+        }
+
+        public override T Retrive<T>() {
+
             throw new NotImplementedException();
         }
         public override void Update(BaseDTO baseDTO)
@@ -84,12 +125,6 @@ namespace DataAccess.CRUD
             return user;
 
         } 
-        /*public override T Retrieve<T>(){
-                throw new NotImplementedException();
-        }
-        public override T RetrieveById<T>()
-        {
-             throw new NotImplementedException();
-        }*/
+        
     }
  }
