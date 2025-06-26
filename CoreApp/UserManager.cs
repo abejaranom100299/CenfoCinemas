@@ -58,7 +58,12 @@ namespace CoreApp
                 ManagerException(ex);
             }
         }
-
+        
+        public List<User> RetrieveAll()
+        {
+            var uCrud = new UserCrudFactory();
+            return uCrud.RetrieveAll<User>();
+        }
 
         private bool IsOver18(User user)
         {
