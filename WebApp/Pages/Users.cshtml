@@ -3,11 +3,20 @@
 @{
 }
 
-<!--<script src="c:\users\graci\source\repos\cenfocinemas\webapp\wwwroot\js\pages\users.js"></script>-->
+<!-- Este archivo define la estructura de la UI de la página de Users.
+     Contiene una tabla para desplegar la información de los usuarios actualmente registrados,
+     además del formulario de creación, modificación y eliminación de usuarios, así como los respectivos botones. -->
+
+<!-- Se establece la conexión con el respectivo script de JavaScript que lo maneja, llamado Users.js (WebApp). -->
 <script src="~/js/pages/users.js"></script>
 
 <h1>Users list</h1>
 <div class="bs-docs-section">
+
+    <!-- Se agregan filas a la página para cada una de sus partes. -->
+
+    <!-- Se crea una primera fila para mostrar la tabla con los usuarios ya registrados.
+         La tabla se carga con la información actualmente presente en la base de datos, cada vez que se carga la página de Users. -->
     <div class="row">
         <legend>Users list</legend>
         <div class="col-lg-12">
@@ -18,15 +27,62 @@
                         <th>UserCode</th>
                         <th>UserName</th>
                         <th>Email</th>
-                        <th>Password</th>
                         <th>BirthDate</th>
                         <th>Status</th>
-                        
                     </tr>
                 </thead>
-
             </table>
+        </div>
+    </div>
 
+    <!-- Se agrega una segunda fila para desarrollar el formulario y agregar los botones requeridos. -->
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="bs-component">
+                <form>
+                    <fieldset>
+                        <legend>User form</legend>
+                        <div class="form-group">
+                            <label for="txtId" class="form-label mt-4">User ID</label>
+                            <input id="txtId" readonly type="number" class="form-control"/>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="txtUserCode" class="form-label mt-4">User code</label>
+                            <input id="txtUserCode" type="text" class="form-control"/>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="txtUserName" class="form-label mt-4">User name</label>
+                            <input id="txtUserName" type="text" class="form-control"/>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="txtEmail" class="form-label mt-4">Email</label>
+                            <input id="txtEmail" type="email" class="form-control"/>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="txtBirthDate" class="form-label mt-4">Birth date</label>
+                            <input id="txtBirthDate" type="date" class="form-control"/>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="txtStatus" class="form-label mt-4">Status</label>
+                            <input id="txtStatus" type="text" class="form-control"/>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="txtPassword" class="form-label mt-4">Password</label>
+                            <input id="txtPassword" type="text" class="form-control" />
+                        </div>
+                    </fieldset>
+                </form>
+                <br/>
+                <button id="btnCreate" class="source-button btn-primary btn-xs" type="button">Save</button>
+                <button id="btnUpdate" class="source-button btn-info btn-xs" type="button">Update</button>
+                <button id="btnDelete" class="source-button btn-danger btn-xs" type="button">Delete</button>
+            </div>
         </div>
     </div>
 </div>

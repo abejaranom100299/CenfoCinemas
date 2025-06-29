@@ -13,7 +13,7 @@ namespace CoreApp
         /*
          * Método para la creación de un usuario.
          * Valida que el usuario sea mayor de 18 anios.
-         * Validaque el codigo de usuario este disponible.
+         * Valida que el codigo de usuario este disponible.
          * Valida que el correo electronico no este registrado.
          * Envia un correo electronico de bienvenida
          */
